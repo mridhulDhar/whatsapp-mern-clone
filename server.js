@@ -22,7 +22,12 @@ const pusher = new Pusher({
 
 
 app.use(express.json());
-app.use(cors());
+const corsOptions = {
+    origin: 'https://dhar-whatsapp-clone.herokuapp.com',
+    optionsSuccessStatus: 200
+  }
+  app.use(cors(corsOptions));
+  app.options('*', cors());
 app.use(express.static('uploads'));
 
 
