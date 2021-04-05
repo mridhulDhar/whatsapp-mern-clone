@@ -4,6 +4,7 @@ const mongoose=require('mongoose');
 const Messages=require('./dbMessages');
 const Pusher= require('pusher');
 const cors=require('cors');
+const path=require('path');
 
 const { audioUpload, imageMsgFileUpload } = require('./helper');
 
@@ -26,13 +27,23 @@ app.use(cors());
 app.use(express.static('uploads'));
 
 
-
 const connectionURL = process.env.MONGODB_URI ||  'mongodb+srv://admin:oT1OrtYcZ4bHUVhw@cluster0.j14st.mongodb.net/whatsappdb?retryWrites=true&w=majority';
 mongoose.connect(connectionURL, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+
+
+
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname,'client/build')));
+
+    app.get('*',function(req,res){
+        res.sendFile(path.join(__dirname,'client/build','index.html'))
+    });
+}
+
 
 
 const db = mongoose.connection;
@@ -316,9 +327,7 @@ app.post('/new/upload-image', imageMsgFileUpload, (req, res) => {
 });
 
 
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static('client/build'));
-}
+
 
 
 
