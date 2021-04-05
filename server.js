@@ -21,7 +21,6 @@ const pusher = new Pusher({
 
 
 
-
 app.use(express.json());
 app.use(cors());
 app.use(express.static('uploads'));
