@@ -1,10 +1,10 @@
 require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const Messages = require('./dbMessages');
-const Pusher = require('pusher');
-const cors = require('cors');
-const path = require('path');
+const express=require('express');
+const mongoose=require('mongoose');
+const Messages=require('./dbMessages');
+const Pusher= require('pusher');
+const cors=require('cors');
+const path=require('path');
 
 const { audioUpload, imageMsgFileUpload } = require('./helper');
 
@@ -21,17 +21,13 @@ const pusher = new Pusher({
 
 
 
+
 app.use(express.json());
-const corsOptions = {
-    origin: 'https://dhar-whatsapp-clone.herokuapp.com',
-    optionsSuccessStatus: 200
-  }
-  app.use(cors(corsOptions));
-  app.options('*', cors());
+app.use(cors());
 app.use(express.static('uploads'));
 
 
-const connectionURL = 'mongodb+srv://admin:oT1OrtYcZ4bHUVhw@cluster0.j14st.mongodb.net/whatsappdb?retryWrites=true&w=majority';
+const connectionURL ='mongodb+srv://admin:oT1OrtYcZ4bHUVhw@cluster0.j14st.mongodb.net/whatsappdb?retryWrites=true&w=majority';
 mongoose.connect(connectionURL, {
     useCreateIndex: true,
     useNewUrlParser: true,
@@ -40,11 +36,11 @@ mongoose.connect(connectionURL, {
 
 
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client/build')));
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname,'client/build')));
 
-    app.get('*', function (req, res) {
-        res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+    app.get('*',function(req,res){
+        res.sendFile(path.join(__dirname,'client/build','index.html'))
     });
 }
 
