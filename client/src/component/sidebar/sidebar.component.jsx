@@ -46,7 +46,8 @@ const SideBar = ({ currentUser, dname }) => {
 
     }, []);
 
-
+    console.log("Chats: ",chats)
+    console.log("Chats: ",chats[0])
 
     return (
         <div className='sidebar'>
@@ -85,9 +86,9 @@ const SideBar = ({ currentUser, dname }) => {
 
 
             <div className='sidebarChats'>
+                
                 <SidebarChat currentUser={currentUser} addnewChat></SidebarChat>
                 {
-                    
                     chats.map(({ id, name, timestamp }) => (
                         <SidebarChat key={id} id={id} name={name} currentUser={currentUser}></SidebarChat>
                     ))
